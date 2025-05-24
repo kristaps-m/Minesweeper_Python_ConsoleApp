@@ -1,14 +1,9 @@
 import pygame
-from minesweeper import Minesweeper
 from pygame_helper import *
 
 # pygame setup is inside py_game_help.py file
 
-game_field = generate_game_field()
-
-m = Minesweeper(ROWS, COLS, NUMBER_OF_MINES, game_field, IS_GAME_OVER)
-m.add_mines_to_game_field()
-m.add_big_numbers_near_mines()
+new_game_button = pygame.Rect(W+50,H/2,200,80)
 
 while running:
     # poll for events
@@ -33,6 +28,16 @@ while running:
                         elif event.button == RIGHT and not f_col.isOpen:
                             f_col.isFlaged = True
             
+                
+            if new_game_button.collidepoint(mouse_pos):
+                print("Create New Game Here!!!!")
+                # ~ create_new_game()
+                IS_GAME_OVER = False
+                game_field = generate_game_field()
+                m = Minesweeper(ROWS, COLS, NUMBER_OF_MINES, game_field, IS_GAME_OVER)
+                m.add_mines_to_game_field()
+                m.add_big_numbers_near_mines()
+                print(f"{IS_GAME_OVER}")
     
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("black")
@@ -42,6 +47,10 @@ while running:
     for f_row in m.field:
         for f_col in f_row:
             if_cell_is_open_function(f_col, IS_GAME_OVER)
+            
+    pygame.draw.rect(screen, "yellow", new_game_button)
+    img = new_game_font.render("New Game", True, "brown")
+    screen.blit(img, (W+65,H/2 + 25))
             
     if IS_GAME_OVER:
         img = game_over_font.render(" GAME OVER!! ", True, "red")
@@ -58,23 +67,3 @@ while running:
     clock.tick(60)  # limits FPS to 60
 
 pygame.quit()
-
-
-# -----------------------------
-            # ~ if f_col.isOpen:
-                # ~ f_col.theColor = "gray"
-                # ~ pygame.draw.rect(screen, f_col.theColor, f_col.theRect)
-                # ~ if f_col.numOfMines > 0:
-                    # ~ img = font.render(str(f_col.numOfMines), True, "black")
-                    # ~ screen.blit(img, (f_col.theRect.left + FONT_OF_SET, f_col.theRect.top + FONT_OF_SET))
-            # ~ elif not f_col.isOpen and f_col.isFlaged:                
-                # ~ pygame.draw.rect(screen, f_col.theColor, f_col.theRect)
-                # ~ img = font.render("F", True, "green")
-                # ~ screen.blit(img, (f_col.theRect.left + FONT_OF_SET, f_col.theRect.top + FONT_OF_SET))
-            # ~ elif not f_col.isOpen and not f_col.isFlaged:                
-                # ~ pygame.draw.rect(screen, f_col.theColor, f_col.theRect)
-                # ~ # img = font.render("F", True, "green")
-                # ~ # screen.blit(img, (f_col.theRect.left + FONT_OF_SET, f_col.theRect.top + FONT_OF_SET))
-            # ~ elif not f_col.isOpen:
-                # ~ f_col.theColor = "pink"
-                # ~ pygame.draw.rect(screen, f_col.theColor, f_col.theRect)

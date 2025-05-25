@@ -4,6 +4,12 @@ from pygame_helper import *
 # pygame setup is inside py_game_help.py file
 
 new_game_button = pygame.Rect(W+50,H/2,200,80)
+flaged_cells_counter = 0
+
+def render_text(font_size, text, color, x, y):
+    the_font = pygame.font.SysFont(None, font_size)
+    img = the_font.render(text, True, color)
+    screen.blit(img, (x, y))
 
 while running:
     # poll for events
@@ -25,8 +31,10 @@ while running:
                                 break
                         elif event.button == RIGHT and not f_col.isOpen and f_col.isFlaged:
                             f_col.isFlaged = False
+                            flaged_cells_counter -= 1
                         elif event.button == RIGHT and not f_col.isOpen:
                             f_col.isFlaged = True
+                            flaged_cells_counter += 1
             
                 
             if new_game_button.collidepoint(mouse_pos):
@@ -37,7 +45,8 @@ while running:
                 m = Minesweeper(ROWS, COLS, NUMBER_OF_MINES, game_field, IS_GAME_OVER)
                 m.add_mines_to_game_field()
                 m.add_big_numbers_near_mines()
-                print(f"{IS_GAME_OVER}")
+                flaged_cells_counter = 0
+                # ~ print(f"{IS_GAME_OVER}")
     
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("black")
@@ -51,6 +60,10 @@ while running:
     pygame.draw.rect(screen, "yellow", new_game_button)
     img = new_game_font.render("New Game", True, "brown")
     screen.blit(img, (W+65,H/2 + 25))
+            
+    render_text(50, "F: " + str(flaged_cells_counter), "white", W+65, 100)
+                    
+    render_text(60, f"mines: {NUMBER_OF_MINES}", "red",W+65, 10)
             
     if IS_GAME_OVER:
         img = game_over_font.render(" GAME OVER!! ", True, "red")

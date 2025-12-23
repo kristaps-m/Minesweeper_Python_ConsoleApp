@@ -6,11 +6,11 @@ ROWS = 9
 COLS = 9
 IS_GAME_OVER = False
 
-print("Welcome to Minesweeper")
+print(f"Welcome to Minesweeper! Size: {ROWS} x {COLS}")
 print("MINE: * ")
 print("Closed Cell: # ")
 print("Opened Cell: |  | ")
-print("Number of mines: | 3 | ")
+print(f"Number of mines: | {NUMBER_OF_MINES} | ")
 
 # define field
 def generate_game_field():

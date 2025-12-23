@@ -28,7 +28,7 @@ class Minesweeper:
                 # ~ oneCell.print_all()
         
     def random_mines_cordinates(self):
-        list_of_all_cords = [];
+        list_of_all_cords = []
         
         for r in range(self.rows):
             for c in range(self.cols):

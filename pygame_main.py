@@ -3,9 +3,6 @@ from pygame_helper import *
 
 # pygame setup is inside py_game_help.py file
 
-NEW_GAME_BUTTON_X = W + 75
-NEW_GAME_BUTTON_Y = H - 150
-
 new_game_button = pygame.Rect(NEW_GAME_BUTTON_X, NEW_GAME_BUTTON_Y, 200, 80)
 decrease_mines_btn = pygame.Rect(W + 50, 300, 80, 80)
 add_more_mines_btn = pygame.Rect(W + 200, 300, 80, 80)
@@ -60,7 +57,12 @@ while running:
                 flaged_cells_counter = 0
                 # ~ print(f"{IS_GAME_OVER}")
 
+        # Keyboard events:
+        # if event.type == pygame.KEYUP:
+            # if event.key == pygame.K_F11:
+            #     print("K F11 pressed")
 
+    SHOW_MINES_CHEAT = get_multiple_keys_pressed() # sets true if 2 secret keys on keyboard are pressed
     
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("black")
@@ -70,6 +72,9 @@ while running:
     for f_row in m.field:
         for f_col in f_row:
             if_cell_is_open_function(f_col, IS_GAME_OVER)
+    
+    if SHOW_MINES_CHEAT:
+        show_mines_if_cheat_key_pressed(m.field) # draws square where mines if cheat is on :P
             
     pygame.draw.rect(screen, "yellow", new_game_button)
     pygame.draw.rect(screen, "#93f59d", decrease_mines_btn)

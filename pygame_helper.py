@@ -17,6 +17,10 @@ ROWS = 10
 COLS = 10
 OF_SET = 2
 FONT_OF_SET = W / ROWS / 3
+NEW_GAME_BUTTON_X = W + 75
+NEW_GAME_BUTTON_Y = H - 150
+SHOW_MINES_CHEAT = False
+
 screen = pygame.display.set_mode((W + ADD_W_FOR_MENU, H))
 clock = pygame.time.Clock()
 running = True
@@ -70,6 +74,28 @@ def if_cell_is_open_function(theCell, is_game_over):
             theCell.theColor = "#f59b93"
         pygame.draw.rect(screen, theCell.theColor, theCell.theRect)
     # pygame.draw.rect(screen, theCell.theColor, theCell.theRect)
+
+
+def get_multiple_keys_pressed():
+    pressed = pygame.key.get_pressed()
+
+    if pressed[pygame.K_q] and pressed[pygame.K_t]:
+        return True
+    
+    return False
+
+
+def show_mines_if_cheat_key_pressed(field):
+    for f_row in field:
+        for one_cell in f_row:
+            if one_cell.isMine:
+                # theRect = left top width height
+
+                new_Rect = pygame.Rect(one_cell.theRect.left+10,one_cell.theRect.top+10,one_cell.theRect.width-20,one_cell.theRect.height-20)
+
+                pygame.draw.rect(screen, "#acffab", new_Rect)
+
+
 
 
 game_field = generate_game_field()

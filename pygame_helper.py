@@ -60,11 +60,16 @@ def if_cell_is_open_function(theCell, is_game_over):
             img = font.render(str(theCell.numOfMines), True, "black")
             screen.blit(img, (theCell.theRect.left + FONT_OF_SET, theCell.theRect.top + FONT_OF_SET))
     elif not theCell.isOpen and theCell.isFlaged:                
+        if theCell.isMine and is_game_over:
+            theCell.theColor = "#f59b93"
         pygame.draw.rect(screen, theCell.theColor, theCell.theRect)
         img = font.render("F", True, "darkgreen")
         screen.blit(img, (theCell.theRect.left + FONT_OF_SET, theCell.theRect.top + FONT_OF_SET))
-    elif not theCell.isOpen and not theCell.isFlaged:                
+    elif not theCell.isOpen and not theCell.isFlaged:
+        if theCell.isMine and is_game_over:
+            theCell.theColor = "#f59b93"
         pygame.draw.rect(screen, theCell.theColor, theCell.theRect)
+    # pygame.draw.rect(screen, theCell.theColor, theCell.theRect)
 
 
 game_field = generate_game_field()

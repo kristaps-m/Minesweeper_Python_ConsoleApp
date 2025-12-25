@@ -11,7 +11,7 @@ DIRECTIONS = [
   { "row": 1, "col": 1 },
   { "row": -1, "col": 1 },
   { "row": 1, "col": -1 },
-];
+]
 
 class Minesweeper:
     def __init__(self, rows= 9, cols= 9, number_of_mines= 10, field =[], isGameOver= False):
@@ -104,6 +104,7 @@ class Minesweeper:
                 if one_cell.isOpen:
                     opened_cells += 1
                     
+        # 85 == 10 * 10 - 15
         return opened_cells == self.rows * self.cols - self.number_of_mines
 # end of check_if_game_won
     

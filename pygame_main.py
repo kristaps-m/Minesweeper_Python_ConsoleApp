@@ -82,7 +82,8 @@ while running:
     pygame.draw.rect(screen, "#f59b93", add_more_mines_btn)
     render_text(200, "+", "white", W + 200, 265)
 
-    render_text(40, "Decrease or Add mines\n when Game is Over!", "white", W + 25, 210)
+    render_text(40, "Decrease or Add mines", "white", W + 25, 210)
+    render_text(40, "When Game is Over!", "white", W + 25, 235)
 
     img = new_game_font.render("New Game", True, "brown")
     screen.blit(img, (NEW_GAME_BUTTON_X + 15, NEW_GAME_BUTTON_Y + 25))
